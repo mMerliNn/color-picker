@@ -5,7 +5,7 @@ const gameOverMessage = document.getElementById('game-over-message');
 
 // Get elements from DOM
 const randomColorSquare = document.querySelector('.random-color-square');
-const pickedColorSquare = document.querySelector('.picked-color-square');
+const pickedColorSquare = document.querySelector('.current-color-square');
 const colorPicker = document.getElementById('color-picker');
 const submitBtn = document.getElementById('submit-btn');
 const resultDisplay = document.getElementById('result');
@@ -14,8 +14,23 @@ const resetBtn = document.getElementById('reset-btn');
 const recentScoresList = document.getElementById('recent-scores');
 
 let randomColor = generateRandomColor();
+let selectedColor;
 let score = 0; // initialize score
 let recentScores = []; // list for scoreboard
+
+
+const cj = colorjoe.rgb(document.querySelector(".colorjoe-picker"));
+cj.show();
+
+// Add a listener for color changes
+cj.on("change", function (color) {
+    // Get the hex string representation of the selected color
+    selectedColor = color.hex();
+
+    // Apply the selected color to the current-color-square
+    document.querySelector(".current-color-square").style.backgroundColor = selectedColor;
+});
+
 
 // Generate a random number based on HEX
 function generateRandomColor() {
@@ -68,24 +83,13 @@ colorPicker.addEventListener('input', () => {
 
 // Event listener to the submit button
 submitBtn.addEventListener('click', () => {
-    if (roundsPlayed >= maxRounds) {
-        gameOverMessage.textContent = 'Good Job! Reset to play again ~';
-        return;
-    }
-
-    const pickedColor = colorPicker.value;
-    const difference = getColorDifference(randomColor, pickedColor);
+    // const selectedColor = colorPicker.hex();
+    const difference = getColorDifference(randomColor, selectedColor);
 
     // Score-keeping
     let currentScore = calculateScore(difference);
     score += currentScore;
     scoreDisplay.textContent = `Score: ${score}/${maxScore}`;
-
-    // Add the current score to the recent scores array
-    // recentScores.push(currentScore);
-    // if (recentScores.length > 10) {
-    //     recentScores.shift();  // Updates score
-    // }
 
     // Update the recent scores list display
     recentScores.push(currentScore);
@@ -94,10 +98,11 @@ submitBtn.addEventListener('click', () => {
     // Generate a new random color and update the color square
     roundsPlayed++;
 
+
     // Hide sumbit button after reaching max rounds
     if (roundsPlayed >= maxRounds) {
         document.getElementById('submit-btn').style.visibility = 'hidden';
-        gameOverMessage.textContent = "Good Job! You can reset to play again."
+        gameOverMessage.textContent = "Good Job! You can reset to play again~"
         return;
     } else {
         setRandomColor();
