@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Color Picker Game</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="colorjoe/colorjoe.css">
+    <script src="colorjoe/colorjoe.min.js"></script>
 </head>
 
 <body>
@@ -12,13 +14,12 @@
 
         <h2>Matching Colors</h2>
         <div class="random-color-square"></div>
-
-        <button id="submit-btn">Submit</button>
-        <input type="color" id="color-picker">
-        <h3 id="player-pick">Your Pick</h3>
- 
         <div id="result"></div>
         <div id="game-over-message"></div>
+        <div class="current-color-square"></div>
+        <h3 id="player-pick">Your Pick</h3>
+        <button id="submit-btn">Submit</button>
+        <div id="color-picker" class="colorjoe-picker"></div>
     </div>
     
     <div class="score-board">
