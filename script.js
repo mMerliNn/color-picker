@@ -89,8 +89,8 @@ submitBtn.addEventListener('click', () => {
     // Score-keeping
     let currentScore = calculateScore(difference);
     score += currentScore;
+    // scoreDisplay.textContent = updateCurrentScoreText(currentScore);
     scoreDisplay.textContent = `Score: ${score}/${maxScore}`;
-
     // Update the recent scores list display
     recentScores.push(currentScore);
     updateRecentScoresList();
@@ -160,7 +160,21 @@ function updateRecentScoresList() {
     // Add each score to the list as a list item
     recentScores.forEach(function(score, index) {
         const listItem = document.createElement('li');
-        listItem.textContent = `Round. ${index + 1}: ${score}`
+        listItem.textContent = `Round ${index + 1}:\r\n ${score}`
         recentScoresList.appendChild(listItem);
     });
 };
+
+// // Define the media query for small screens (e.g., max-width of 600px)
+// const mediaQuery = window.matchMedia("(max-width: 600px)");
+
+// function updateCurrentScoreText(currentScore) {
+//     // Check if the media query matches (screen is smaller than 600px)
+//     if (mediaQuery.matches) {
+//         // Media query matches: Display different text for small screens
+//         return `Score: ${currentScore} (Small screen)`;
+//     } else {
+//         // Media query doesn't match: Default text for larger screens
+//         return `Score: ${currentScore} (Large screen)`;
+//     }
+// }
