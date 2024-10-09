@@ -2,8 +2,6 @@ let roundsPlayed = 0;
 const maxRounds = 10;
 const maxScore = 50;
 const gameOverMessage = document.getElementById('game-over-message');
-
-// Get elements from DOM
 const randomColorSquare = document.querySelector('.random-color-square');
 const pickedColorSquare = document.querySelector('.current-color-square');
 const colorPicker = document.getElementById('color-picker');
@@ -18,7 +16,7 @@ let selectedColor;
 let score = 0; // initialize score
 let recentScores = []; // list for scoreboard
 
-
+// Initialize colorjoe color picker
 const cj = colorjoe.rgb(document.querySelector(".colorjoe-picker"));
 cj.show();
 
@@ -57,22 +55,34 @@ function hexToRgb(hex) {
     return {r, g, b};
 };
 
-// Compare the picked color with the random color
+// // Compare the picked color with the random color
+// function getColorDifference(color1, color2) {
+//     // Convert HEX to RGB
+//     const rgb1 = hexToRgb(color1);
+//     const rgb2 = hexToRgb(color2);
+
+//     // Evaluate color difference with Euclidean distance
+//     const diff = Math.sqrt(
+//         Math.pow(rgb1.r - rgb2.r, 2) +
+//         Math.pow(rgb1.g - rgb2.g, 2) +
+//         Math.pow(rgb1.b - rgb2.b, 2)
+//     );
+//     const maxDiff = 441.673;  // Max possible difference in RGB color space
+//     const normalizedDiff = (diff / maxDiff).toFixed(2);
+//     return normalizedDiff;
+// };
+
 function getColorDifference(color1, color2) {
     // Convert HEX to RGB
-    const rgb1 = hexToRgb(color1);
-    const rgb2 = hexToRgb(color2);
+    const rgb1 = chroma(color1);
+    const rgb2 = chroma(color2);
 
-    // Evaluate color difference with Euclidean distance
-    const diff = Math.sqrt(
-        Math.pow(rgb1.r - rgb2.r, 2) +
-        Math.pow(rgb1.g - rgb2.g, 2) +
-        Math.pow(rgb1.b - rgb2.b, 2)
-    );
-    const maxDiff = 441.673;  // Max possible difference in RGB color space
+    // Evaluate color difference with CIE2000
+    const diff = chroma.deltaE(rgb1, rgb2);
+    const maxDiff = 100;  // Max possible difference in CLAB color space
     const normalizedDiff = (diff / maxDiff).toFixed(2);
     return normalizedDiff;
-};
+}
 
 setRandomColor();
 
@@ -89,8 +99,8 @@ submitBtn.addEventListener('click', () => {
     // Score-keeping
     let currentScore = calculateScore(difference);
     score += currentScore;
-    // scoreDisplay.textContent = updateCurrentScoreText(currentScore);
     scoreDisplay.textContent = `Score: ${score}/${maxScore}`;
+
     // Update the recent scores list display
     recentScores.push(currentScore);
     updateRecentScoresList();
@@ -160,21 +170,8 @@ function updateRecentScoresList() {
     // Add each score to the list as a list item
     recentScores.forEach(function(score, index) {
         const listItem = document.createElement('li');
-        listItem.textContent = `Round ${index + 1}:\r\n ${score}`
+        listItem.textContent = `Round. ${index + 1}:\r\n ${score}`
         recentScoresList.appendChild(listItem);
     });
 };
 
-// // Define the media query for small screens (e.g., max-width of 600px)
-// const mediaQuery = window.matchMedia("(max-width: 600px)");
-
-// function updateCurrentScoreText(currentScore) {
-//     // Check if the media query matches (screen is smaller than 600px)
-//     if (mediaQuery.matches) {
-//         // Media query matches: Display different text for small screens
-//         return `Score: ${currentScore} (Small screen)`;
-//     } else {
-//         // Media query doesn't match: Default text for larger screens
-//         return `Score: ${currentScore} (Large screen)`;
-//     }
-// }

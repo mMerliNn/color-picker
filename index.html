@@ -10,14 +10,15 @@
 </head>
 
 <body>
+    <a href="./gradientMode/gradientIndex.html">Gradient Mode <br>(Under Construction)</a>
     <div class="game-container">
 
-        <h1>Matching Colors</h1>
+        <h2>Matching Colors</h2>
         <div class="random-color-square"></div>
-        <div id="game-over-message"></div>
         <div id="result"></div>
+        <div id="game-over-message"></div>
         <div class="current-color-square"></div>
-        <h2 id="player-pick">Your Pick</h2>
+        <h3 id="player-pick">Your Pick</h3>
         <button id="submit-btn">Submit</button>
         <div id="color-picker" class="colorjoe-picker"></div>
     </div>
@@ -25,12 +26,13 @@
     <div class="score-board">
         <button id="reset-btn">Reset</button>
          <div class="score-list-container">
-            <h2 id="score-board">Scoreboard</h2>
+            <h3>Scoreboard</h3>
             <ul id="recent-scores"></ul>
         </div>
         <div id="score">Score:</div>
     </div>
-    <script src="script.js"></script>
 
+    <script src="chroma/chroma.min.cjs"></script>
+    <script src="script.js"></script>
 </body>
 </html>
