@@ -7,12 +7,21 @@
     <link rel="stylesheet" href="gradientStyles.css">
 </head>
 <body>
-    <div class="container">
-        <!-- Random Color Display -->
-        <div id="result"></div>
-        <div id="randomColorSquare" class="random-color-square"></div>
 
-        <!-- Color Options (Six Squares) -->
+    <div class="container">
+        <h1>Find the Color</h1>
+        <div id="result"></div>
+        <div id="top-box">
+            <!-- Random Color Display -->
+            <div id="randomColorSquare" class="random-color-square"></div>
+            <div id="info-board">
+                <div id="countdown">Countdown:<br>10</div>
+                <div id="score">0</div>
+                <button id="reset-btn">Reset</button>
+            </div>
+        </div>
+        <!-- Gradient squares 3 x 2 -->
+        <!-- <hr> -->
         <div class="color-options">
             <div class="color-square"></div>
             <div class="color-square"></div>
@@ -21,10 +30,10 @@
             <div class="color-square"></div>
             <div class="color-square"></div>
         </div>
-        <nav>
-            <a href="../index.html">Color Matching Game</a>
-        </nav>
 
+        <nav>
+            <a href="../index.html" id="link">Color Matching Game</a>
+        </nav>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chroma-js@2.1.0/chroma.min.js"></script>
